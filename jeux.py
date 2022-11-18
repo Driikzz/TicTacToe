@@ -4,151 +4,126 @@ tableau.append(['-','-','-'])
 tableau.append(['-','-','-'])
 tableau.append(['-','-','-'])
 
-
-
-    
+signeJoueur = 'X'
 
 def showBoard(): 
     for i in range(0,len(tableau)):
         print(" | ".join(str(e) for e in tableau[i]))
 
-            
 
 def choixJoueur():
-    caseDisponible = 9
-    test = False
-    while caseDisponible > 0: 
-        entreeJoueurs = input(("Tu souhaites écrire dans quelles case ?: "))
-        for x in range(0,len(tableau)):
-            for y in range(0,len(tableau[x])) : 
-                if tableau[x][y] == '-':
-                    print(caseDisponible)
-                    caseDisponible = caseDisponible- 1
-                    test = True
-                    break  
-                else:
-                    print("Erreur: case pleine essaie une autre case.")
-            if test == True:
-                break        
-        if test == True:
-            break
-    return entreeJoueurs
+        entreeJoueurs = input(("Joueur 1 Tu souhaites écrire dans quelles case ?: "))
+
+        return entreeJoueurs
 
 def choixJoueurDeux():
-    caseDisponible = 9
-    test = False
-    while caseDisponible > 0: 
-        entreeJoueurs2 = input(("Tu souhaites écrire dans quelles case ?: "))
-        for x in range(0,len(tableau)):
-            for y in range(0,len(tableau[x])) : 
-                if tableau[x][y] == '-':
-                    caseDisponible = caseDisponible- 1
-                    test = True
-                    break  
-                else:
-                    print("Erreur :")
-            if test == True:
-                break        
-        if test == True:
-            break
-    return entreeJoueurs2
+        entreeJoueursDeux = input(("Joueur 2 Tu souhaites écrire dans quelles case ?: "))
 
+        return entreeJoueursDeux
 
-    
+def testing():
+        win = None
+
+        n = len(tableau)
+
+        # checking rows
+        for i in range(n):
+            win = True
+            for j in range(n):
+                if tableau[i][j] != signeJoueur:
+                    win = False
+                    break
+            if win:
+                print("gagné")
+                return win
+
+def checkColumns():
+        n = len(tableau)
+        # checking columns
+        for i in range(n):
+            win = True
+            for j in range(n):
+                if tableau[j][i] != signeJoueur:
+                    win = False
+                    break
+            if win:
+                print("gagné")
+                return win
+
+def checkDiagonals():
+        n = len(tableau)
+        # checking diagonals
+        win = True
+        for i in range(n):
+            if tableau[i][i] != signeJoueur:
+                win = False
+                break
+        if win:
+            print("gagné")
+            return win
 
 def game ():
     joueurDeux = 0 
     start = 1
-    charPlayer = input(("Tu souhaites jouer O ou X: "))
     choiceGame = input(("Tu souhaites jouer avec un ami, ou avec un bot ?: "))
+    signeJoueur = 'X' if randint(1,2) == 1 else 'O'
+    print("Votre signe est :"+ signeJoueur)
+
+
     tourJoueurUn = False 
     tourJoueurDeux = False
+    
     while start == 1:
+
         
-        if charPlayer == 'X':
-            joueurDeux = 1
-            if joueurDeux == 1 :
-                charPlayerDeux = 'O'
-            else:
-                charPlayer = 'X'
-            
-            
-            if choiceGame == "ami":
-                tourJoueurUn = True
-                if tourJoueurUn == True:
-                    # tourJoueurUn = True
-                    print("Joueur 1 commence")
-                else : 
-                    tourJoueurDeux = tourJoueurDeux + 1
-                    print("Joueur 2 commence") 
-
-        if tourJoueurUn == True :
-            showBoard()
-            choixJoueurs = choixJoueur()
-            print("Tour au joueur 1")
-            if choixJoueurs == "1": 
-                tableau[0][0]= (charPlayer)
-                showBoard()
-            if choixJoueurs == "2": 
-                    tableau[0][1]= (charPlayer)
-                    showBoard()
-            if choixJoueurs == "3": 
-                    tableau[0][2]= (charPlayer)
-                    showBoard()
-            if choixJoueurs == "4": 
-                    tableau[1][0]= (charPlayer)
-                    showBoard()
-            if choixJoueurs == "5": 
-                    tableau[1][1]= (charPlayer) 
-                    showBoard() 
-            if choixJoueurs == "6": 
-                    tableau[1][2]= (charPlayer)
-                    showBoard()
-            if choixJoueurs == "7": 
-                    tableau[2][0]= (charPlayer)
-                    showBoard()
-            if choixJoueurs == "8": 
-                    tableau[2][1]= (charPlayer)
-                    showBoard()
-            if choixJoueurs == "9": 
-                    tableau[2][2]= (charPlayer)
-                    showBoard()
-            
-
-        if tourJoueurDeux == 1 :
-            choixJoueur2 = choixJoueurDeux()
-            print("Tour au joueur 2")
-            if choixJoueur2 == "1": 
-                tableau[0][0]= (charPlayerDeux)
-                showBoard()
-            if choixJoueur2 == "2": 
-                    tableau[0][1]= (charPlayerDeux)
-                    showBoard()
-            if choixJoueur2 == "3": 
-                    tableau[0][2]= (charPlayerDeux)
-                    showBoard()
-            if choixJoueur2 == "4": 
-                    tableau[1][0]= (charPlayerDeux)
-                    showBoard()   
-            if choixJoueur2 == "5": 
-                    tableau[1][1]= (charPlayerDeux)
-                    showBoard()          
-            if choixJoueur2 == "6": 
-                    tableau[1][2]= (charPlayerDeux)
-                    showBoard()
-            if choixJoueur2 == "7": 
-                    tableau[2][0]= (charPlayerDeux)
-                    showBoard()
-            if choixJoueur2 == "8": 
-                    tableau[2][1]= (charPlayerDeux)
-                    showBoard()
-            if choixJoueur2 == "9": 
-                    tableau[2][2]= (charPlayerDeux)
-                    showBoard()
-            
-
               
+        if choiceGame == "ami":
+            tourJoueurUn = True
+            if tourJoueurUn == True:
+                print("Joueur 1")
+            else : 
+                print("Joueur 2 ") 
 
+       
+
+        while tourJoueurUn == True: 
+            showBoard()
+            if signeJoueur == 'X':
+                signeJoueur = 'O'
+            else:
+                signeJoueur = 'X' 
+            choixJoueurs = (choixJoueur().split())
+            for i in range(0,len(choixJoueurs)):
+                choixJoueurs[i] = int(choixJoueurs[i])
+            if(tableau[choixJoueurs[0]][choixJoueurs[1]]=="-"):
+                tableau[choixJoueurs[0]][choixJoueurs[1]] = signeJoueur
+                tourJoueurDeux = True
+                testing()
+                checkColumns()
+                checkDiagonals
+                break   
+            else: 
+                print("Case occupé, essaie une autre !")
+
+
+        while tourJoueurDeux == True:
+            if signeJoueur == 'X':
+                signeJoueur = 'O'
+            else:
+                signeJoueur = 'X' 
+            showBoard()
+            choixJoueursDeux = (choixJoueurDeux().split())
+            for i in range(0,len(choixJoueurs)):
+                choixJoueursDeux[i] = int(choixJoueursDeux[i])
+            if(tableau[choixJoueursDeux[0]][choixJoueursDeux[1]]=="-"):
+                tableau[choixJoueursDeux[0]][choixJoueursDeux[1]] = signeJoueur
+                tourJoueurUn = True
+                testing()
+                checkColumns()
+                checkDiagonals
+                break   
+            else: 
+                print("Case occupé, essaie une autre !")
 
 game()
 
