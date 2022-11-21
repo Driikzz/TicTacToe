@@ -3,18 +3,21 @@ tableau = []
 tableau.append(['-','-','-'])
 tableau.append(['-','-','-'])
 tableau.append(['-','-','-'])
-playerSign = 'X'
+number = randint(1,2)
 
 def showBoard(): 
     for i in range(0,len(tableau)):
         print(" | ".join(str(e) for e in tableau[i]))
 
-def playerSignSwap(): 
-    playerSign = 'X'
-    if playerSign == 'X':
-        playerSign = 'O'
-    else:
+def playerSignSwap():
+    number = 1 
+    if number % 2 != 0 :
         playerSign = 'X'
+        number = number - 0,5
+        print(number)
+    else: 
+        playerSign = 'O'
+        number = number + 10
     return playerSign
 
 def caseDisponible():
@@ -28,7 +31,9 @@ def caseDisponible():
         print("Case occupé, essaie une autre !")
 
 def game():
-
+    
+   
+        
     start = 1
     
 
