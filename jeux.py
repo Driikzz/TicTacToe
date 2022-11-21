@@ -3,8 +3,10 @@ tableau = []
 tableau.append(['-','-','-'])
 tableau.append(['-','-','-'])
 tableau.append(['-','-','-'])
-
-signeJoueur = 'X'
+winner = 0
+signeJoueur = ' '
+tourJoueurUn = False 
+tourJoueurDeux = False
 
 def showBoard(): 
     for i in range(0,len(tableau)):
@@ -13,17 +15,13 @@ def showBoard():
 
 def choixJoueur():
         entreeJoueurs = input(("Joueur 1 Tu souhaites écrire dans quelles case ?: "))
-
         return entreeJoueurs
 
 def choixJoueurDeux():
         entreeJoueursDeux = input(("Joueur 2 Tu souhaites écrire dans quelles case ?: "))
-
         return entreeJoueursDeux
 
 def testing():
-        win = None
-
         n = len(tableau)
 
         # checking rows
@@ -35,7 +33,10 @@ def testing():
                     break
             if win:
                 print("gagné")
-                return win
+                winner = 1
+                tourJoueurUn = False 
+                tourJoueurDeux = False
+                return tourJoueurUn and tourJoueurDeux
 
 def checkColumns():
         n = len(tableau)
@@ -48,7 +49,10 @@ def checkColumns():
                     break
             if win:
                 print("gagné")
-                return win
+                winner = 1
+                tourJoueurUn = False 
+                tourJoueurDeux = False
+                return tourJoueurUn and tourJoueurDeux
 
 def checkDiagonals():
         n = len(tableau)
@@ -59,24 +63,18 @@ def checkDiagonals():
                 win = False
                 break
         if win:
+            winner = 1
             print("gagné")
-            return win
+            return winner
+
 
 def game ():
-    joueurDeux = 0 
     start = 1
     choiceGame = input(("Tu souhaites jouer avec un ami, ou avec un bot ?: "))
     signeJoueur = 'X' if randint(1,2) == 1 else 'O'
-    print("Votre signe est :"+ signeJoueur)
-
-
-    tourJoueurUn = False 
-    tourJoueurDeux = False
     
-    while start == 1:
-
-        
-              
+    
+    while start == 1:            
         if choiceGame == "ami":
             tourJoueurUn = True
             if tourJoueurUn == True:
@@ -84,14 +82,10 @@ def game ():
             else : 
                 print("Joueur 2 ") 
 
-       
 
         while tourJoueurUn == True: 
             showBoard()
-            if signeJoueur == 'X':
-                signeJoueur = 'O'
-            else:
-                signeJoueur = 'X' 
+            print("C'est au tour de :"+ signeJoueur)
             choixJoueurs = (choixJoueur().split())
             for i in range(0,len(choixJoueurs)):
                 choixJoueurs[i] = int(choixJoueurs[i])
@@ -100,18 +94,19 @@ def game ():
                 tourJoueurDeux = True
                 testing()
                 checkColumns()
-                checkDiagonals
+                checkDiagonals()
                 break   
             else: 
                 print("Case occupé, essaie une autre !")
-
+            
 
         while tourJoueurDeux == True:
             if signeJoueur == 'X':
                 signeJoueur = 'O'
             else:
-                signeJoueur = 'X' 
+                signeJoueur = 'X'     
             showBoard()
+            print("C'est au tour de :"+ signeJoueur) 
             choixJoueursDeux = (choixJoueurDeux().split())
             for i in range(0,len(choixJoueurs)):
                 choixJoueursDeux[i] = int(choixJoueursDeux[i])
@@ -120,7 +115,9 @@ def game ():
                 tourJoueurUn = True
                 testing()
                 checkColumns()
-                checkDiagonals
+                checkDiagonals()
+                if winner == 1 :
+                    print(signeJoueur + "Bien joué tu as gagné !")
                 break   
             else: 
                 print("Case occupé, essaie une autre !")
