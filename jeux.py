@@ -4,10 +4,6 @@ tableau.append(['-','-','-'])
 tableau.append(['-','-','-'])
 tableau.append(['-','-','-'])
 
-
-signeJoueur = 'X'
-signeJoueur = 'O'
-
 import os
 clear = lambda: os.system('cls')
 
@@ -16,15 +12,28 @@ def showBoard():
         print(" | ".join(str(e) for e in tableau[i]))
 
 
-def choixJoueur():
+def choixJoueur(signeJoueur):
+        isVide = 1
         entreeJoueurs = input(("Joueur 1 Tu souhaites écrire dans quelles case ?: "))
-        return entreeJoueurs
+        choixJoueurs = (entreeJoueurs.split())
+        for i in range(0,len(choixJoueurs)):
+                choixJoueurs[i] = int(choixJoueurs[i])
+        while isVide == 1:
+            if(tableau[choixJoueurs[0]][choixJoueurs[1]]=="-"):
+                tableau[choixJoueurs[0]][choixJoueurs[1]] = signeJoueur
+                break
+            else:
+                print("Case pleine essaie une autre !")
+                isVide = 0
+                choixJoueur(signeJoueur)
+
+        return choixJoueurs, signeJoueur
 
 def choixJoueurDeux():
         entreeJoueursDeux = input(("Joueur 2 Tu souhaites écrire dans quelles case ?: "))
         return entreeJoueursDeux
 
-def testing():
+def testing(signeJoueur):
         n = len(tableau)
 
         # checking rows
@@ -38,7 +47,7 @@ def testing():
                 print("gagné ROW")
                 return win
 
-def checkColumns():
+def checkColumns(signeJoueur):
         
         n = len(tableau)
         # checking columns
@@ -49,12 +58,11 @@ def checkColumns():
                     win = False
                     break
             if win:
-                start = 0
                 print("gagné Col ")
                 
                 return win
 
-def checkDiagonals():
+def checkDiagonals(signeJoueur):
         n = len(tableau)
         # checking diagonals
         win = True
@@ -75,81 +83,53 @@ def checkDiagonals():
             return win
         return False
 
-        for row in taleau:
-            for item in row:
-                if item == '-':
-                    return False
-        return True
-
-def checkEqual():
-        for row in tableau:
-            for item in row:
-                if item == '-':
-                    return False
-        return True
-
-
 def game ():
+    signeJoueur = 'X'
     start = 1
     choiceGame = input(("Tu souhaites jouer avec un ami, ou avec un bot ?: "))
-    signeJoueur = 'X'
     restart = 0
+    equal = 0
     
-    while start == 1:            
-        
-        
+    while start == 1:                    
         if choiceGame == "ami":
             tourJoueurUn = True
             if tourJoueurUn == True:
                 print("Joueur 1")
             else : 
                 print("Joueur 2 ") 
-
         while tourJoueurUn == True: 
             showBoard()
             if signeJoueur == 'O':
                 signeJoueur = 'X'
-            else:
-                signeJoueur = 'O'
+            else: 
+                signeJoueur ='O'
             print("C'est au tour de :"+ signeJoueur)
-            choixJoueurs = (choixJoueur().split())
-            for i in range(0,len(choixJoueurs)):
-                choixJoueurs[i] = int(choixJoueurs[i])
             while start == 1:
-                if(tableau[choixJoueurs[0]][choixJoueurs[1]]=="-"):
-                    tableau[choixJoueurs[0]][choixJoueurs[1]] = signeJoueur
-                    if testing():
-                        print("ROW")
+                    choixJoueur(signeJoueur)
+                    equal = equal + 1
+                    
+                    if equal == 9:
+                        print("Egalité")
+                        start = 0
+                        tourJoueurUn == False
+                        restart = 1
+                    
+                    if testing(signeJoueur) or checkColumns(signeJoueur) or checkDiagonals(signeJoueur):
                         print("Le joueur " + signeJoueur +" a gagné ")
                         start = 0
                         tourJoueurUn == False
                         restart = 1
-                    if checkColumns():
-                        print("COL")
-                        print("Le joueur " + signeJoueur +" a gagné ")
-                        start = 0
-                        tourJoueurUn == False
-                        restart = 1
-                    if checkDiagonals(): 
-                        print("Le joueur " + signeJoueur +" a gagné ")
-                        start = 0
-                        tourJoueurUn == False
-                        restart = 1
-                    if not checkEqual:
-                        print("Equal")
+                    
                     if restart == 1 :
                         choiceRestart = input("Vous voulez rejouer ?: ")
                         if choiceRestart == "oui":
                             clear()
                             game()
-                            
-
                         else:
-                            break
-                    break   
-                else: 
-                    print("Case occupé, essaie une autre !")
+                            break 
                     break
+
+            
             
 
 game()
