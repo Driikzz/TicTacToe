@@ -26,8 +26,22 @@ def choixJoueur(signeJoueur):
                 print("Case pleine essaie une autre !")
                 isVide = 0
                 choixJoueur(signeJoueur)
-
         return choixJoueurs, signeJoueur
+
+def choixIa (signeJoueur):
+    # premier tour 
+    if signeJoueur == 'O': 
+        if tableau[1][1] == 'O': 
+            tableau[2][0] = 'X'
+        else: 
+            tableau[1][1]='X'
+        
+    #deuxième tour 
+    if signeJoueur == 'O': 
+        # millieu
+        if tableau[1][1] == 'O':
+            print((((((()))))))
+
 
 def testing(signeJoueur):
         n = len(tableau)
@@ -86,13 +100,17 @@ def game ():
     restart = 0
     equal = 0
     
+    
     while start == 1:                    
         if choiceGame == "ami":
             tourJoueurUn = True
             if tourJoueurUn == True:
-                print("Joueur 1")
+                print("Party contre un ami :")
             else : 
-                print("Joueur 2 ") 
+                print("Party contre un bot") 
+
+
+
         while tourJoueurUn == True: 
             showBoard()
             if signeJoueur == 'O':
@@ -101,7 +119,9 @@ def game ():
                 signeJoueur ='O'
             print("C'est au tour de :"+ signeJoueur)
             while start == 1:
+                    
                     choixJoueur(signeJoueur)
+                    choixIa(signeJoueur)
                     equal = equal + 1
                     
                     if equal == 9:
