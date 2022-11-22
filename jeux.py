@@ -29,10 +29,6 @@ def choixJoueur(signeJoueur):
 
         return choixJoueurs, signeJoueur
 
-def choixJoueurDeux():
-        entreeJoueursDeux = input(("Joueur 2 Tu souhaites écrire dans quelles case ?: "))
-        return entreeJoueursDeux
-
 def testing(signeJoueur):
         n = len(tableau)
 
@@ -58,7 +54,7 @@ def checkColumns(signeJoueur):
                     win = False
                     break
             if win:
-                print("gagné Col ")
+                print("gagné Col")
                 
                 return win
 
@@ -128,10 +124,7 @@ def game ():
                         else:
                             break 
                     break
-
-            
-            
-
+       
 game()
 
 
