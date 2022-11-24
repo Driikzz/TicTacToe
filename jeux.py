@@ -51,10 +51,9 @@ def iaPlay(signeJoueur,turn):
         for y in range(len(tableau[x])):
             if tableau[x][y] != 'O':
                 if turn == 1:
-                    # si on commence
-                        # si on joue milieu
+                        
                         if tableau[0][0] == 'O':
-                            # alors l'ia j oue coin
+                            
                             tableau[1][1] = signeJoueur
                         else:
                             tableau[2][1] = signeJoueur
@@ -66,7 +65,7 @@ def iaPlay(signeJoueur,turn):
                         # return tableau, signeJoueur 
                     elif tableau[0][1] and tableau[0][2] == 'O' and tableau[0][0] == '-':
                         tableau[0][0] = signeJoueur
-                        print("TEST 1")
+                      
                         # return tableau, signeJoueur            
                     elif tableau[0][0] and tableau[0][2] == 'O' and tableau[0][1] == '-':
                         tableau[0][1] = signeJoueur
@@ -95,7 +94,7 @@ def iaPlay(signeJoueur,turn):
                         # return tableau, signeJoueur
                     elif tableau[2][0] and tableau[1][0] == 'O' and tableau[0][0] == '-':
                         tableau[0][0] = signeJoueur
-                        print("TEST 2")
+                    
                         return tableau, signeJoueur     
                     elif tableau[0][0] and tableau[2][0] == 'O'and tableau[1][0] == '-':
                         tableau[1][0] = signeJoueur
@@ -124,7 +123,7 @@ def iaPlay(signeJoueur,turn):
                         # return tableau, signeJoueur
                     elif tableau[2][2] and tableau[1][1] == 'O'and tableau[0][0] == '-':
                         tableau[0][0] = signeJoueur
-                        print("TEST 3")
+                    
                         # return tableau, signeJoueur
                     return tableau, signeJoueur
             else:
@@ -143,7 +142,7 @@ def testing(signeJoueur):
                     win = False
                     break
             if win:
-                print("gagné ROW")
+                
                 return win
 
 def checkColumns(signeJoueur):
@@ -157,7 +156,7 @@ def checkColumns(signeJoueur):
                     win = False
                     break
             if win:
-                print("gagné Col")
+               
                 
                 return win
 
@@ -170,7 +169,7 @@ def checkDiagonals(signeJoueur):
                 win = False
                 break
         if win:
-            print("gagné diag")
+         
             return win
         
 
@@ -209,7 +208,6 @@ def game ():
             
             while player == True:
                     choixJoueur(signeJoueur)
-                    print(turn)
                     equal = equal + 1
                     turn = turn + 1
                     
@@ -228,7 +226,6 @@ def game ():
             
             while iaPlayer == True:
                     iaPlay(signeJoueur,turn)
-                    print(turn)
                    
                     equal = equal + 1
                     turn = turn + 1
