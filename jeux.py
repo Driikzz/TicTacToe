@@ -29,6 +29,21 @@ def choixJoueur(signeJoueur):
         return choixJoueurs, signeJoueur
 
 
+def relancerUneParty():
+    tableau[0][0] = '-'
+    tableau[0][1] = '-'
+    tableau[0][2] = '-'
+
+    tableau[1][0] = '-'
+    tableau[1][1] = '-'
+    tableau[1][2] = '-'
+
+    tableau[2][0] = '-'
+    tableau[2][1] = '-'
+    tableau[2][2] = '-'
+    return tableau
+
+
 def iaPlay(signeJoueur,turn):
 
 
@@ -235,6 +250,7 @@ def game ():
                 choiceRestart = input("Vous voulez rejouer ?: ")
                 if choiceRestart == "oui":
                     clear()
+                    relancerUneParty()
                     game()
                 else:
                     break 
