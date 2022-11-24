@@ -7,7 +7,7 @@ tableau.append(['-','-','-'])
 import os
 clear = lambda: os.system('cls')
 
-def showBoard(): 
+def showtableau(): 
     for i in range(0,len(tableau)):
         print(" | ".join(str(e) for e in tableau[i]))
 
@@ -28,21 +28,95 @@ def choixJoueur(signeJoueur):
                 choixJoueur(signeJoueur)
         return choixJoueurs, signeJoueur
 
-def choixIa (signeJoueur):
-    # premier tour 
-    if signeJoueur == 'O': 
-        if tableau[1][1] == 'O': 
-            tableau[2][0] = 'X'
-        else: 
-            tableau[1][1]='X'
+
+def iaPlay(signeJoueur,turn):
+
+
+    for x in range(len(tableau)):
+        for y in range(len(tableau[x])):
+            if tableau[x][y] != 'O':
+                if turn == 1:
+                    # si on commence
+                        # si on joue milieu
+                        if tableau[0][0] == 'O':
+                            # alors l'ia j oue coin
+                            tableau[1][1] = signeJoueur
+                        else:
+                            tableau[2][1] = signeJoueur
+                            return tableau,signeJoueur
+                if turn == 3 or turn == 5 or turn == 7:
+                #row
+                    if tableau[0][0] and tableau[0][1] == 'O' and tableau[0][2] == '-':
+                        tableau[0][2] = signeJoueur
+                        # return tableau, signeJoueur 
+                    elif tableau[0][1] and tableau[0][2] == 'O' and tableau[0][0] == '-':
+                        tableau[0][0] = signeJoueur
+                        print("TEST 1")
+                        # return tableau, signeJoueur            
+                    elif tableau[0][0] and tableau[0][2] == 'O' and tableau[0][1] == '-':
+                        tableau[0][1] = signeJoueur
+                        # return tableau, signeJoueur
+                    elif tableau[1][0] and tableau[1][1] == 'O' and tableau[1][2] == '-':
+                        tableau[1][2] = signeJoueur
+                        # return tableau, signeJoueur           
+                    elif tableau[1][1] and tableau[1][2] == 'O' and tableau[1][0] == '-':
+                        tableau[1][0] = signeJoueur
+                        # return tableau, signeJoueur
+                    elif tableau[1][0] and tableau[1][2] == 'O' and tableau[1][1] == '-':
+                        tableau[1][1] = signeJoueur
+                        # return tableau, signeJoueur
+                    elif tableau[2][0] and tableau[2][1] == 'O' and tableau[2][2] == '-':
+                        tableau[2][2] = signeJoueur
+                        # return tableau, signeJoueur
+                    elif tableau[2][1] and tableau[2][2] == 'O' and tableau[2][0] == '-' :
+                        tableau[2][0] = signeJoueur
+                        # return tableau, signeJoueur
+                    elif tableau[2][0] and tableau[2][2] == 'O' and tableau[2][1] == '-':
+                        tableau[2][1] = signeJoueur
+                        # return tableau, signeJoueur
+                # col
+                    elif tableau[0][0] and tableau[1][0] == 'O' and tableau[2][0] == '-':
+                        tableau[2][0] = signeJoueur
+                        # return tableau, signeJoueur
+                    elif tableau[2][0] and tableau[1][0] == 'O' and tableau[0][0] == '-':
+                        tableau[0][0] = signeJoueur
+                        print("TEST 2")
+                        return tableau, signeJoueur     
+                    elif tableau[0][0] and tableau[2][0] == 'O'and tableau[1][0] == '-':
+                        tableau[1][0] = signeJoueur
+                        # return tableau, signeJoueur           
+                    elif tableau[0][1] and tableau[1][1] == 'O'and tableau[2][1] == '-':
+                        tableau[2][1] = signeJoueur
+                        # return tableau, signeJoueur            
+                    elif tableau[2][1] and tableau[1][1] == 'O'and tableau[0][1] == '-':
+                        tableau[0][1] = signeJoueur
+                        # return tableau, signeJoueur                
+                    elif tableau[0][1] and tableau[2][1] == 'O'and tableau[1][1] == '-':
+                        tableau[1][1] = signeJoueur
+                        # return tableau, signeJoueur            
+                    elif tableau[0][2] and tableau[1][2] == 'O' and tableau[2][2] == '-':
+                        tableau[2][2] = signeJoueur
+                        # return tableau, signeJoueur            
+                    elif tableau[2][2] and tableau[1][2] == 'O' and tableau[0][2] == '-':
+                        tableau[0][2] = signeJoueur
+                        # return tableau, signeJoueur              
+                    elif tableau[0][2] and tableau[2][2] == 'O'and tableau[1][2] == '-':
+                        tableau[1][2] = signeJoueur
+                        # return tableau, signeJoueur              
+                # diag
+                    elif tableau[0][0] and tableau[1][1] == 'O'and tableau[2][2] == '-':
+                        tableau[2][2] = signeJoueur
+                        # return tableau, signeJoueur
+                    elif tableau[2][2] and tableau[1][1] == 'O'and tableau[0][0] == '-':
+                        tableau[0][0] = signeJoueur
+                        print("TEST 3")
+                        # return tableau, signeJoueur
+                    return tableau, signeJoueur
+            else:
+                print("Case non disponible")
         
-    #deuxième tour 
-    if signeJoueur == 'O': 
-        # millieu
-        if tableau[1][1] == 'O':
-            print((((((()))))))
 
-
+   
 def testing(signeJoueur):
         n = len(tableau)
 
@@ -84,14 +158,6 @@ def checkDiagonals(signeJoueur):
             print("gagné diag")
             return win
         
-        win = True
-        for i in range(n):
-            if tableau[i][n - 1 - i] != tableau:
-                win = False
-                break
-        if win:
-            return win
-        return False
 
 def game ():
     signeJoueur = 'X'
@@ -99,11 +165,14 @@ def game ():
     choiceGame = input(("Tu souhaites jouer avec un ami, ou avec un bot ?: "))
     restart = 0
     equal = 0
+    turn = 0
+    iaPlayer= False
     
     
     while start == 1:                    
         if choiceGame == "ami":
             tourJoueurUn = True
+            player = True
             if tourJoueurUn == True:
                 print("Party contre un ami :")
             else : 
@@ -112,17 +181,22 @@ def game ():
 
 
         while tourJoueurUn == True: 
-            showBoard()
+            showtableau()
             if signeJoueur == 'O':
                 signeJoueur = 'X'
+                iaPlayer = True
+                player = False
             else: 
                 signeJoueur ='O'
+                player = True
+                iaPlayer =False
             print("C'est au tour de :"+ signeJoueur)
-            while start == 1:
-                    
+            
+            while player == True:
                     choixJoueur(signeJoueur)
-                    choixIa(signeJoueur)
+                    print(turn)
                     equal = equal + 1
+                    turn = turn + 1
                     
                     if equal == 9:
                         print("Egalité")
@@ -135,20 +209,34 @@ def game ():
                         start = 0
                         tourJoueurUn == False
                         restart = 1
-                    
-                    if restart == 1 :
-                        choiceRestart = input("Vous voulez rejouer ?: ")
-                        if choiceRestart == "oui":
-                            clear()
-                            game()
-                        else:
-                            break 
                     break
+            
+            while iaPlayer == True:
+                    iaPlay(signeJoueur,turn)
+                    print(turn)
+                   
+                    equal = equal + 1
+                    turn = turn + 1
+                    
+                    if equal == 9:
+                        print("Egalité")
+                        start = 0
+                        tourJoueurUn == False
+                        restart = 1
+                    
+                    if testing(signeJoueur) or checkColumns(signeJoueur) or checkDiagonals(signeJoueur):
+                        print("Le joueur " + signeJoueur +" a gagné ")
+                        start = 0
+                        tourJoueurUn == False
+                        restart = 1
+                    break
+
+            if restart == 1 :
+                choiceRestart = input("Vous voulez rejouer ?: ")
+                if choiceRestart == "oui":
+                    clear()
+                    game()
+                else:
+                    break 
        
 game()
-
-
-
-
-
-
